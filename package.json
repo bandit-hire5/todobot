@@ -22,7 +22,8 @@
         "lint-quite": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet",
         "lint-fix": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
         "migration:run": "node dist/index.js --service=todo --activity=migrations",
-        "migration:revert": "typeorm migration:revert"
+        "migration:revert": "typeorm migration:revert",
+        "heroku-postbuild": "npm run build"
     },
     "dependencies": {
         "class-validator": "^0.14.0",
