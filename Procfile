@@ -1,1 +1,1 @@
-npm run start-container
+bot: npm run start-container
