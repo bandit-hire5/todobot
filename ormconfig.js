@@ -7,6 +7,7 @@ module.exports = [
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE || "todonotes",
+    ssl: process.env.DB_SSL === "required",
     synchronize: false,
     logging: process.env.DB_LOGGING || false,
     entities: ["dist/entities/**/*.js"],

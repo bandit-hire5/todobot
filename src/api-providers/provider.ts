@@ -13,6 +13,7 @@ import {
   DB_PORT,
   DB_USER,
   DB_CONNECTION_LIMIT,
+  DB_SSL,
 } from "~src/constants";
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
@@ -32,6 +33,7 @@ export async function establishConnection(overrideOptions?: Partial<ConnectionOp
     entities: CONNECTION_ENTITIES,
     migrations: CONNECTION_MIGRATIONS,
     subscribers: CONNECTION_SUBSCRIBERS,
+    ssl: DB_SSL,
     extra: {
       connectionLimit: DB_CONNECTION_LIMIT,
       waitForConnections: true,
