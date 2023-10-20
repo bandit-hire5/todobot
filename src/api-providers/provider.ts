@@ -6,6 +6,7 @@ import {
   CONNECTION_MIGRATIONS,
   CONNECTION_SUBSCRIBERS,
   CONNECTION_SYNCHRONIZE,
+  DATABASE_URL,
   DB_DATABASE,
   DB_HOST,
   DB_LOGGING,
@@ -21,19 +22,14 @@ import waitPort from "wait-port";
 
 export async function establishConnection(overrideOptions?: Partial<ConnectionOptions>): Promise<Connection> {
   const defaultOptions: PostgresConnectionOptions = {
+    url: DATABASE_URL,
     name: CONNECTION_NAME,
     type: CONNECTION_TYPE,
-    host: DB_HOST,
-    port: DB_PORT,
-    username: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_DATABASE,
     synchronize: CONNECTION_SYNCHRONIZE,
     logging: DB_LOGGING,
     entities: CONNECTION_ENTITIES,
     migrations: CONNECTION_MIGRATIONS,
     subscribers: CONNECTION_SUBSCRIBERS,
-    ssl: DB_SSL,
     extra: {
       connectionLimit: DB_CONNECTION_LIMIT,
       waitForConnections: true,
