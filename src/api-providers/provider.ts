@@ -6,43 +6,43 @@ import {
   CONNECTION_MIGRATIONS,
   CONNECTION_SUBSCRIBERS,
   CONNECTION_SYNCHRONIZE,
-  MYSQL_DATABASE,
-  MYSQL_HOST,
-  MYSQL_LOGGING,
-  MYSQL_PASSWORD,
-  MYSQL_PORT,
-  MYSQL_USER,
-  MYSQL_CONNECTION_LIMIT,
+  DB_DATABASE,
+  DB_HOST,
+  DB_LOGGING,
+  DB_PASSWORD,
+  DB_PORT,
+  DB_USER,
+  DB_CONNECTION_LIMIT,
 } from "~src/constants";
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
-import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 import waitPort from "wait-port";
 
 export async function establishConnection(overrideOptions?: Partial<ConnectionOptions>): Promise<Connection> {
-  const defaultOptions: MysqlConnectionOptions = {
+  const defaultOptions: PostgresConnectionOptions = {
     name: CONNECTION_NAME,
     type: CONNECTION_TYPE,
-    host: MYSQL_HOST,
-    port: MYSQL_PORT,
-    username: MYSQL_USER,
-    password: MYSQL_PASSWORD,
-    database: MYSQL_DATABASE,
+    host: DB_HOST,
+    port: DB_PORT,
+    username: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_DATABASE,
     synchronize: CONNECTION_SYNCHRONIZE,
-    logging: MYSQL_LOGGING,
+    logging: DB_LOGGING,
     entities: CONNECTION_ENTITIES,
     migrations: CONNECTION_MIGRATIONS,
     subscribers: CONNECTION_SUBSCRIBERS,
     extra: {
-      connectionLimit: MYSQL_CONNECTION_LIMIT,
+      connectionLimit: DB_CONNECTION_LIMIT,
       waitForConnections: true,
     },
     cache: true,
-  } as MysqlConnectionOptions;
+  } as PostgresConnectionOptions;
 
   const options = {
     ...defaultOptions,
     ...overrideOptions,
-  } as MysqlConnectionOptions;
+  } as PostgresConnectionOptions;
 
   try {
     await waitPort({

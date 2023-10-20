@@ -1,7 +1,7 @@
 import AppError from "~src/models/error";
 import { ERRORS } from "~src/interfaces/app/app";
 
-const catchMysqlErrors = async <RequestMessage, ResponseMessage>(
+const catchDatabaseErrors = async <RequestMessage, ResponseMessage>(
   handler: (msg: RequestMessage) => Promise<ResponseMessage>,
   msg: RequestMessage
 ): Promise<ResponseMessage> => {
@@ -19,7 +19,7 @@ const catchMysqlErrors = async <RequestMessage, ResponseMessage>(
   }
 };
 
-export const catchMysqlErrorsDecorator =
+export const catchDatabaseErrorsDecorator =
   <RequestMessage, ResponseMessage>(handler: (msg: RequestMessage) => Promise<ResponseMessage>) =>
   (msg: RequestMessage) =>
-    catchMysqlErrors(handler, msg);
+    catchDatabaseErrors(handler, msg);
