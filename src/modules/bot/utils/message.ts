@@ -76,3 +76,21 @@ export const listItemMessage = (note: INoteFull): IMessage => {
     ],
   };
 };
+
+export const delimiterMessage = (): IMessage => {
+  return {
+    text: `+----------------------------------+
+    |                                  |
+    |      **********************      |
+    |                                  |
+    +----------------------------------+`,
+    parseMode: "HTML",
+  };
+};
+
+export const emptyListMessage = (): IMessage => {
+  return {
+    text: `😭 You have nothing to do...`,
+    parseMode: "HTML",
+  };
+};
