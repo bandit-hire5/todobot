@@ -23,7 +23,7 @@ export async function establishConnection(overrideOptions?: Partial<ConnectionOp
     entities: CONNECTION_ENTITIES,
     migrations: CONNECTION_MIGRATIONS,
     subscribers: CONNECTION_SUBSCRIBERS,
-    ssl: true,
+    ssl: { rejectUnauthorized: false },
     extra: {
       connectionLimit: DB_CONNECTION_LIMIT,
       waitForConnections: true,
