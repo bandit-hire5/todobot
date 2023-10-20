@@ -7,14 +7,8 @@ import {
   CONNECTION_SUBSCRIBERS,
   CONNECTION_SYNCHRONIZE,
   DATABASE_URL,
-  DB_DATABASE,
-  DB_HOST,
   DB_LOGGING,
-  DB_PASSWORD,
-  DB_PORT,
-  DB_USER,
   DB_CONNECTION_LIMIT,
-  DB_SSL,
 } from "~src/constants";
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
@@ -41,15 +35,6 @@ export async function establishConnection(overrideOptions?: Partial<ConnectionOp
     ...defaultOptions,
     ...overrideOptions,
   } as PostgresConnectionOptions;
-
-  try {
-    await waitPort({
-      host: options.host,
-      port: options.port,
-    });
-  } catch (e) {
-    process.exit(e.code);
-  }
 
   return createConnection(options);
 }
