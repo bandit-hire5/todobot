@@ -12,7 +12,6 @@ import {
 } from "~src/constants";
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
-import waitPort from "wait-port";
 
 export async function establishConnection(overrideOptions?: Partial<ConnectionOptions>): Promise<Connection> {
   const defaultOptions: PostgresConnectionOptions = {
@@ -24,6 +23,7 @@ export async function establishConnection(overrideOptions?: Partial<ConnectionOp
     entities: CONNECTION_ENTITIES,
     migrations: CONNECTION_MIGRATIONS,
     subscribers: CONNECTION_SUBSCRIBERS,
+    ssl: true,
     extra: {
       connectionLimit: DB_CONNECTION_LIMIT,
       waitForConnections: true,
