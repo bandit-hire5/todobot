@@ -38,10 +38,9 @@ export default class JobRepository implements IJobRepository {
   }
 
   public async activateList(): Promise<void> {
-    await this.entityManager.query(`update job set status = ? where status = ?`, [
-      JobStatuses.active,
-      JobStatuses.blocked,
-    ]);
+    await this.entityManager.query(
+      `update job set status = '${JobStatuses.active}' where status = '${JobStatuses.blocked}'`
+    );
   }
 
   public async create(data: IJobData, uniqueHash: string, scheduleOn: number, repeatInSeconds: number): Promise<IJob> {
