@@ -9,7 +9,7 @@ export default class Job implements IJob {
   @VersionColumn({ default: 0 })
   version: number;
 
-  @Column()
+  @Column({ type: "enum", enum: JobStatuses })
   status: JobStatuses;
 
   @Column()

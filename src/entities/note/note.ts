@@ -9,7 +9,7 @@ export default class Note extends Deletable implements IBase, IDeletableEntity, 
   @Column()
   text: string;
 
-  @Column()
+  @Column({ type: "enum", enum: NoteStatuses })
   status: NoteStatuses;
 
   @ManyToOne(() => User, (user: User) => user.notes, { onDelete: "CASCADE", onUpdate: "CASCADE" })

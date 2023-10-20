@@ -1,8 +1,12 @@
 module.exports = [
   {
     name: "default",
-    type: "sqlite",
-    database: process.env.MYSQL_DATABASE || "default.db",
+    type: "mysql",
+    host: process.env.MYSQL_HOST || "localhost",
+    port: process.env.MYSQL_PORT || 3306,
+    username: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE || "todonotes",
     synchronize: false,
     logging: process.env.MYSQL_LOGGING || false,
     entities: ["dist/entities/**/*.js"],

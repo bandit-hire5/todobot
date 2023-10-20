@@ -7,16 +7,25 @@ import {
   CONNECTION_SUBSCRIBERS,
   CONNECTION_SYNCHRONIZE,
   MYSQL_DATABASE,
+  MYSQL_HOST,
   MYSQL_LOGGING,
+  MYSQL_PASSWORD,
+  MYSQL_PORT,
+  MYSQL_USER,
   MYSQL_CONNECTION_LIMIT,
 } from "~src/constants";
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
-import { SqliteConnectionOptions } from "typeorm/driver/sqlite/SqliteConnectionOptions";
+import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
+import waitPort from "wait-port";
 
 export async function establishConnection(overrideOptions?: Partial<ConnectionOptions>): Promise<Connection> {
-  const defaultOptions: SqliteConnectionOptions = {
+  const defaultOptions: MysqlConnectionOptions = {
     name: CONNECTION_NAME,
     type: CONNECTION_TYPE,
+    host: MYSQL_HOST,
+    port: MYSQL_PORT,
+    username: MYSQL_USER,
+    password: MYSQL_PASSWORD,
     database: MYSQL_DATABASE,
     synchronize: CONNECTION_SYNCHRONIZE,
     logging: MYSQL_LOGGING,
@@ -28,12 +37,21 @@ export async function establishConnection(overrideOptions?: Partial<ConnectionOp
       waitForConnections: true,
     },
     cache: true,
-  } as SqliteConnectionOptions;
+  } as MysqlConnectionOptions;
 
   const options = {
     ...defaultOptions,
     ...overrideOptions,
-  } as SqliteConnectionOptions;
+  } as MysqlConnectionOptions;
+
+  try {
+    await waitPort({
+      host: options.host,
+      port: options.port,
+    });
+  } catch (e) {
+    process.exit(e.code);
+  }
 
   return createConnection(options);
 }
